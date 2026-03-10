@@ -44,6 +44,12 @@
     here it is like , "mongodb+srv://nishchalsharma456_db_user:<db_password>@cluster0.asieevn.mongodb.net/?appName=Cluster0",use this that we have saved earlier.
     check if it has setup or not : echo $env:MONGODB_URL 
 
+                         *** For cmd ***
+   to set command : set MONGODB_URL=mongodb+srv://nishchalsharma456_db_user:<db_password>@cluster0.asieevn.mongodb.net/?appName=Cluster0
+   to check if is set : echo %MONGODB_URL%
+
+
+
     To setup the connection url on Windows, open env variable setting option and add a new variable:
     Name: MONGODB_URL, Value = <url>
     Also add "artifact" dir to .gitignore file
