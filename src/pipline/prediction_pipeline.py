@@ -42,7 +42,7 @@ class VehicleData:
 
     def get_vehicle_input_data_frame(self)-> DataFrame:
         """
-        This function returns a DataFrame from USvisaData class input
+        This function returns a DataFrame from Vechicle Data class input
         """
         try:
             
