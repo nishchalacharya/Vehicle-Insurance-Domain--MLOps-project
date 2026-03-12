@@ -1,18 +1,18 @@
 # 🚗 Vehicle Insurance Domain – Comprehensive MLOps & Deployment Showcase
 
-> **Project Objective:**
-> 
-> Build a **professional‑grade, end‑to‑end MLOps platform** targeted at vehicle insurance risk prediction. This project is designed not just to produce accurate models, but to demonstrate the ability to deliver ML as a repeatable, scalable, and maintainable software product. Key goals include:
-> 
-> - Ingest and curate real user data from a live MongoDB Atlas cluster.
-> - Validate data against a strict schema and measure quality metrics.
-> - Transform raw features into model‑ready representations with reusable transformers.
-> - Train, evaluate, and compare models automatically; serialize both models and performance metadata.
-> - Promote only better‑performing models to a persistent registry (AWS S3), enabling version control.
-> - Provide an accessible prediction API via Flask with consistent preprocessing for serving.
-> - Automate the full pipeline (build, test, deploy) using Docker and GitHub Actions backed by a self‑hosted EC2 runner.
-> 
-> Ultimately, the objective is to simulate a real‑world ML engineering workflow, showcasing architectural hygiene, cloud integration, DevOps practices, and a strong emphasis on reproducibility and auditability.
+ **Project Objective:**
+
+ Build a **professional‑grade, end‑to‑end MLOps platform** targeted at vehicle insurance risk prediction. This project is designed not just to produce accurate models, but to demonstrate the ability to deliver ML as a repeatable, scalable, and maintainable software product. Key goals include:
+ 
+ - Ingest and curate real user data from a live MongoDB Atlas cluster.
+ - Validate data against a strict schema and measure quality metrics.
+ - Transform raw features into model‑ready representations with reusable transformers.
+ - Train, evaluate, and compare models automatically; serialize both models and performance metadata.
+ - Promote only better‑performing models to a persistent registry (AWS S3), enabling version control.
+ - Provide an accessible prediction API via Flask with consistent preprocessing for serving.
+ - Automate the full pipeline (build, test, deploy) using Docker and GitHub Actions backed by a self‑hosted EC2 runner.
+ 
+ Ultimately, the objective is to simulate a real‑world ML engineering workflow, showcasing architectural hygiene, cloud integration, DevOps practices, and a strong emphasis on reproducibility and auditability.
 
 This repository represents a **complete software engineering lifecycle** for a machine learning product—ideal for technical reviewers and hiring managers to assess architecture, quality, and deployment expertise.
 
