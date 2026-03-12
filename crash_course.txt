@@ -140,7 +140,7 @@ sudo systemctl enable actions.runner.<your-runner-name>.service
 sudo ./svc.sh stop
 sudo ./svc.sh uninstall
 
-# Re-configure the runner
+# Re-configure the runner(means if we make new self hosted runner,then try this)
 ./config.sh --url https://github.com/vikashishere/MLOps-Test-Proj --token <NEW_TOKEN>
 
 # Re-install and start the service
