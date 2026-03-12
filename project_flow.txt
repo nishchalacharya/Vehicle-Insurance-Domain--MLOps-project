@@ -136,6 +136,7 @@
       ## Optinal
       sudo apt-get update -y
       sudo apt-get upgrade
+
       ## Required (Because Docker is'nt there in our EC2 server - [docker --version])
       docker ps (to check if docker is present in our virtual machine or not )
       ## Run all below 4 commands to install docker in ubuntu machine 
@@ -144,7 +145,7 @@
       sudo usermod -aG docker ubuntu
       newgrp docker
 
-29. Next step is to connect Github with EC2(Self hosted runner):
+29. Next step is to connect Github with EC2(Self hosted runner->  not githhub runner as we are hosting on Ec2 ):
       * select your project on Github >> go to settings >> Actions >> Runner >> New self hosted runner
         >> Select OS (Linux) >> Now step by step run all "Download" related commands on EC2 server 
         >> run first "Configure" command (hit enter instead of setting a runner group, runner name: self-hosted)
@@ -158,6 +159,7 @@
       AWS_SECRET_ACCESS_KEY
       AWS_DEFAULT_REGION
       ECR_REPO
+      MONGODB_URL(if we want to add train model part too as data is present in mongodb url so )
 
 31. CI-CD pipeline will be triggered at next commit and push.
 32. Now we need to activate the 5000 port of our EC2 instance:
