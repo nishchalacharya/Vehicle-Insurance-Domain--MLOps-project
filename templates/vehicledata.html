@@ -264,18 +264,17 @@
         </div>
     </form>
 
-    <form method="get" action="/train" style="margin-top:12px">
-        <button type="submit" class="btn btn-secondary">⚙️ Train / Retrain Model</button>
-    </form>
-
     {% if context %}
-    <div class="result">
+    <div class="result {% if context == 'Response-Yes' %}result-yes{% else %}result-no{% endif %}">
+        <div class="result-icon">
+            {% if context == 'Response-Yes' %}✅{% else %}❌{% endif %}
+        </div>
         <div class="result-label">Prediction Result</div>
-        <h2>{{ context }}</h2>
+        <h2>{% if context == 'Response-Yes' %}Customer is Interested!{% else %}Customer is Not Interested{% endif %}</h2>
+        <p class="result-sub">{% if context == 'Response-Yes' %}This customer is likely to purchase vehicle insurance.{% else %}This customer is unlikely to purchase vehicle insurance.{% endif %}</p>
     </div>
     {% endif %}
 
 </div>
 </body>
 </html>
-

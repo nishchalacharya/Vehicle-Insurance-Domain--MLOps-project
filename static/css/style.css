@@ -308,27 +308,53 @@ select optgroup {
 
 /* ── Result Box ── */
 .result {
-    background: linear-gradient(135deg, rgba(79,110,247,0.12), rgba(124,58,237,0.08));
-    border: 1px solid rgba(79,110,247,0.3);
-    border-radius: 12px;
-    padding: 20px 24px;
+    border-radius: 16px;
+    padding: 32px 24px;
     text-align: center;
     margin-top: 24px;
-    animation: fadeUp 0.4s ease;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.result-yes {
+    background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.05));
+    border: 2px solid rgba(16,185,129,0.5);
+    box-shadow: 0 0 40px rgba(16,185,129,0.15);
+}
+
+.result-no {
+    background: linear-gradient(135deg, rgba(248,113,113,0.15), rgba(248,113,113,0.05));
+    border: 2px solid rgba(248,113,113,0.4);
+    box-shadow: 0 0 40px rgba(248,113,113,0.12);
+}
+
+.result-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+    animation: bounceIn 0.6s ease;
 }
 
 .result-label {
-    font-size: 12px;
+    font-size: 11px;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.15em;
     color: var(--muted);
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .result h2 {
     font-family: 'Syne', sans-serif;
-    font-size: 22px;
-    color: #8ba4fa;
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.result-yes h2 { color: #10b981; }
+.result-no h2  { color: #f87171; }
+
+.result-sub {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.5;
 }
 
 /* ── Animations ── */
@@ -340,4 +366,15 @@ select optgroup {
 @keyframes fadeDown {
     from { opacity: 0; transform: translateY(-12px); }
     to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes bounceIn {
+    0%   { transform: scale(0); }
+    60%  { transform: scale(1.2); }
+    100% { transform: scale(1); }
 }
