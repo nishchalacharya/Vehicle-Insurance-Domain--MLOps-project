@@ -1,73 +1,343 @@
-/* styles.css */
-body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+/* style.css — Vehicle Insurance Predictor */
+
+*, *::before, *::after {
+    box-sizing: border-box;
     margin: 0;
-    background-color: #f4f6f8;
+    padding: 0;
 }
 
-.container {
-    width: 100%;
-    max-width: 500px;
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+:root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #22263a;
+    --border: #2e3348;
+    --accent: #4f6ef7;
+    --accent2: #7c3aed;
+    --green: #10b981;
+    --text: #e8eaf6;
+    --muted: #8b92b3;
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 40px 16px;
+    background-image:
+        radial-gradient(ellipse at 20% 0%, rgba(79,110,247,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 100%, rgba(124,58,237,0.10) 0%, transparent 60%);
+}
+
+/* ── Page Wrapper ── */
+.page-wrapper {
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+/* ── Header ── */
+.header {
     text-align: center;
+    margin-bottom: 40px;
+    animation: fadeDown 0.6s ease;
 }
 
-h1 {
-    color: #333;
+.header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(79,110,247,0.15);
+    border: 1px solid rgba(79,110,247,0.3);
+    color: #8ba4fa;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 999px;
+    margin-bottom: 16px;
 }
 
-form {
+.header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(26px, 5vw, 38px);
+    font-weight: 800;
+    background: linear-gradient(135deg, #e8eaf6 0%, #8ba4fa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.15;
+}
+
+.header p {
+    color: var(--muted);
+    margin-top: 10px;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* ── Card ── */
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 20px;
+    animation: fadeUp 0.5s ease both;
+}
+
+.card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.card-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+}
+
+/* ── Fields ── */
+.field-group {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
 }
 
-label {
-    text-align: left;
-    color: #555;
-    font-weight: bold;
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
-input {
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+.field-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
 }
 
-button {
-    padding: 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
+.field-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.field-hint {
+    font-size: 12px;
+    color: var(--muted);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 3px 8px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.field-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+    margin-bottom: 4px;
+}
+
+/* ── Toggle Buttons ── */
+.toggle-group {
+    display: flex;
+    gap: 8px;
+}
+
+.toggle-option {
+    flex: 1;
+    position: relative;
+}
+
+.toggle-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-option label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 14px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    transition: all 0.2s ease;
+    width: 100%;
 }
 
-button:hover {
-    background-color: #0056b3;
+.toggle-option input[type="radio"]:checked + label {
+    background: rgba(79,110,247,0.15);
+    border-color: var(--accent);
+    color: #8ba4fa;
 }
 
-.train-button {
-    background-color: #28a745;
-    margin-top: 15px;
+.toggle-option label:hover {
+    border-color: rgba(79,110,247,0.5);
+    color: var(--text);
 }
 
-.train-button:hover {
-    background-color: #218838;
+/* ── Number Input ── */
+input[type="number"] {
+    width: 100%;
+    padding: 11px 16px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    -moz-appearance: textfield;
 }
 
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+input[type="number"]:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(79,110,247,0.15);
+}
+
+input[type="number"]::placeholder {
+    color: var(--muted);
+}
+
+/* ── Select Dropdown ── */
+select {
+    width: 100%;
+    padding: 11px 16px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238b92b3' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+}
+
+select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(79,110,247,0.15);
+}
+
+select option {
+    background: var(--surface2);
+    color: var(--text);
+}
+
+select optgroup {
+    color: var(--muted);
+    font-weight: 600;
+}
+
+/* ── Buttons ── */
+.actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: white;
+    box-shadow: 0 4px 20px rgba(79,110,247,0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 24px rgba(79,110,247,0.45);
+}
+
+.btn-secondary {
+    background: rgba(16,185,129,0.12);
+    color: var(--green);
+    border: 1px solid rgba(16,185,129,0.3);
+}
+
+.btn-secondary:hover {
+    background: rgba(16,185,129,0.2);
+    transform: translateY(-1px);
+}
+
+/* ── Result Box ── */
 .result {
-    margin-top: 20px;
+    background: linear-gradient(135deg, rgba(79,110,247,0.12), rgba(124,58,237,0.08));
+    border: 1px solid rgba(79,110,247,0.3);
+    border-radius: 12px;
+    padding: 20px 24px;
+    text-align: center;
+    margin-top: 24px;
+    animation: fadeUp 0.4s ease;
+}
+
+.result-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 8px;
 }
 
 .result h2 {
-    color: #007bff;
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    color: #8ba4fa;
+}
+
+/* ── Animations ── */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0); }
 }

@@ -4,59 +4,277 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vehicle Insurance Prediction</title>
-    <!-- Corrected the CSS path -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Vehicle Insurance Prediction</h1>
+<div class="page-wrapper">
 
-        <form method="post" action="/">
-            <label for="Gender">Gender (1: Male, 0: Female):</label>
-            <input type="number" id="Gender" name="Gender" min="0" max="1" required>
-
-            <label for="Age">Age:</label>
-            <input type="number" id="Age" name="Age" required>
-
-            <label for="Driving_License">Driving License (0: No, 1: Yes):</label>
-            <input type="number" id="Driving_License" name="Driving_License" min="0" max="1" required>
-
-            <label for="Region_Code">Region Code:</label>
-            <input type="number" step="0.01" id="Region_Code" name="Region_Code" required>
-
-            <label for="Previously_Insured">Previously Insured (0: No, 1: Yes):</label>
-            <input type="number" id="Previously_Insured" name="Previously_Insured" min="0" max="1" required>
-
-            <label for="Annual_Premium">Annual Premium:</label>
-            <input type="number" step="0.01" id="Annual_Premium" name="Annual_Premium" required>
-
-            <label for="Policy_Sales_Channel">Policy Sales Channel:</label>
-            <input type="number" step="0.01" id="Policy_Sales_Channel" name="Policy_Sales_Channel" required>
-
-            <label for="Vintage">Vintage:</label>
-            <input type="number" id="Vintage" name="Vintage" required>
-
-            <label for="Vehicle_Age_lt_1_Year">Vehicle Age < 1 Year (0: No, 1: Yes):</label>
-            <input type="number" id="Vehicle_Age_lt_1_Year" name="Vehicle_Age_lt_1_Year" min="0" max="1" required>
-
-            <label for="Vehicle_Age_gt_2_Years">Vehicle Age > 2 Years (0: No, 1: Yes):</label>
-            <input type="number" id="Vehicle_Age_gt_2_Years" name="Vehicle_Age_gt_2_Years" min="0" max="1" required>
-
-            <label for="Vehicle_Damage_Yes">Vehicle Damage (0: No, 1: Yes):</label>
-            <input type="number" id="Vehicle_Damage_Yes" name="Vehicle_Damage_Yes" min="0" max="1" required>
-
-            <button type="submit">Predict</button>
-        </form>
-
-        <form method="get" action="/train">
-            <button type="submit" class="train-button">Train Model</button>
-        </form>
-
-        {% if context %}
-            <div class="result">
-                <h2>Result: {{ context }}</h2>
-            </div>
-        {% endif %}
+    <div class="header">
+        <div class="header-badge">🚗 ML Prediction</div>
+        <h1>Vehicle Insurance<br>Interest Predictor</h1>
+        <p>Fill in the customer details below to predict whether<br>they are likely to be interested in vehicle insurance.</p>
     </div>
+
+    <form method="post" action="/">
+
+        <div class="card">
+            <div class="card-title">👤 Personal Information</div>
+            <div class="field-group">
+
+                <div class="field">
+                    <div class="field-header">
+                        <span class="field-label">Gender</span>
+                    </div>
+                    <div class="field-desc">The biological sex of the customer. This can influence insurance interest patterns.</div>
+                    <div class="toggle-group">
+                        <div class="toggle-option">
+                            <input type="radio" id="gender_male" name="Gender" value="1" required>
+                            <label for="gender_male">♂ Male</label>
+                        </div>
+                        <div class="toggle-option">
+                            <input type="radio" id="gender_female" name="Gender" value="0">
+                            <label for="gender_female">♀ Female</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="field-header">
+                        <span class="field-label">Age</span>
+                        <span class="field-hint">In years</span>
+                    </div>
+                    <div class="field-desc">Customer's current age. Older customers may have different insurance needs and risk profiles.</div>
+                    <input type="number" name="Age" placeholder="e.g. 35" min="18" max="100" required>
+                </div>
+
+                <div class="field">
+                    <div class="field-header">
+                        <span class="field-label">Driving License</span>
+                    </div>
+                    <div class="field-desc">Does the customer hold a valid driving license? A license is usually required to be eligible for vehicle insurance.</div>
+                    <div class="toggle-group">
+                        <div class="toggle-option">
+                            <input type="radio" id="dl_yes" name="Driving_License" value="1" required>
+                            <label for="dl_yes">✅ Yes, has license</label>
+                        </div>
+                        <div class="toggle-option">
+                            <input type="radio" id="dl_no" name="Driving_License" value="0">
+                            <label for="dl_no">❌ No license</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="field-header">
+                        <span class="field-label">Region Code</span>
+                        <span class="field-hint">53 regions</span>
+                    </div>
+                    <div class="field-desc">The customer's geographical region. Region <strong>28</strong> is the most common (19.8% of customers). High-density regions have more training data, so predictions are more accurate for them.</div>
+                    <select name="Region_Code" required>
+                        <option value="" disabled selected>Select a region...</option>
+                        <optgroup label="🟢 High Density (10K+ customers)">
+                            <option value="28">28 — Most Common (106,415 customers)</option>
+                            <option value="8">8 (33,877 customers)</option>
+                            <option value="46">46 (19,749 customers)</option>
+                            <option value="41">41 (18,263 customers)</option>
+                            <option value="15">15 (13,308 customers)</option>
+                            <option value="30">30 (12,191 customers)</option>
+                            <option value="29">29 (11,065 customers)</option>
+                            <option value="50">50 (10,243 customers)</option>
+                        </optgroup>
+                        <optgroup label="🟡 Medium Density (5K–10K customers)">
+                            <option value="3">3 (9,251 customers)</option>
+                            <option value="11">11 (9,232 customers)</option>
+                            <option value="36">36</option>
+                            <option value="33">33</option>
+                            <option value="35">35</option>
+                            <option value="18">18</option>
+                            <option value="12">12</option>
+                            <option value="37">37</option>
+                        </optgroup>
+                        <optgroup label="🔴 Low Density (other regions)">
+                            <option value="0">0</option><option value="1">1</option><option value="2">2</option>
+                            <option value="4">4</option><option value="5">5</option><option value="6">6</option>
+                            <option value="7">7</option><option value="9">9</option><option value="10">10</option>
+                            <option value="13">13</option><option value="14">14</option><option value="16">16</option>
+                            <option value="17">17</option><option value="19">19</option><option value="20">20</option>
+                            <option value="21">21</option><option value="22">22</option><option value="23">23</option>
+                            <option value="24">24</option><option value="25">25</option><option value="26">26</option>
+                            <option value="27">27</option><option value="31">31</option><option value="32">32</option>
+                            <option value="34">34</option><option value="38">38</option><option value="39">39</option>
+                            <option value="40">40</option><option value="42">42</option><option value="43">43</option>
+                            <option value="44">44</option><option value="45">45</option><option value="47">47</option>
+                            <option value="48">48</option><option value="49">49</option><option value="51">51</option>
+                            <option value="52">52</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">🚘 Vehicle & Insurance Details</div>
+            <div class="field-group">
+
+                <div class="field">
+                    <div class="field-header">
+                        <span class="field-label">Previously Insured</span>
+                    </div>
+                    <div class="field-desc">Has the customer already purchased vehicle insurance before? Customers who already have insurance are less likely to buy a new policy.</div>
+                    <div class="toggle-group">
+                        <div class="toggle-option">
+                            <input type="radio" id="insured_yes" name="Previously_Insured" value="1" required>
+                            <label for="insured_yes">✅ Already insured</label>
+                        </div>
+                        <div class="toggle-option">
+                            <input type="radio" id="insured_no" name="Previously_Insured" value="0">
+                            <label for="insured_no">❌ Not insured</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="field-header">
+                        <span class="field-label">Vehicle Age — Less than 1 Year?</span>
+                    </div>
+                    <div class="field-desc">Is the vehicle brand new (under 1 year old)? Newer vehicles typically cost more to insure.</div>
+                    <div class="toggle-group">
+                        <div class="toggle-option">
+                            <input type="radio" id="lt1_yes" name="Vehicle_Age_lt_1_Year" value="1" required>
+                            <label for="lt1_yes">✅ Yes</label>
+                        </div>
+                        <div class="toggle-option">
+                            <input type="radio" id="lt1_no" name="Vehicle_Age_lt_1_Year" value="0">
+                            <label for="lt1_no">❌ No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="field-header">
+                        <span class="field-label">Vehicle Age — More than 2 Years?</span>
+                    </div>
+                    <div class="field-desc">Is the vehicle older than 2 years? Older vehicles may have a higher risk of damage.</div>
+                    <div class="toggle-group">
+                        <div class="toggle-option">
+                            <input type="radio" id="gt2_yes" name="Vehicle_Age_gt_2_Years" value="1" required>
+                            <label for="gt2_yes">✅ Yes</label>
+                        </div>
+                        <div class="toggle-option">
+                            <input type="radio" id="gt2_no" name="Vehicle_Age_gt_2_Years" value="0">
+                            <label for="gt2_no">❌ No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="field-header">
+                        <span class="field-label">Vehicle Damage History</span>
+                    </div>
+                    <div class="field-desc">Has the customer's vehicle been damaged in the past? Customers with prior damage are more likely to want insurance coverage.</div>
+                    <div class="toggle-group">
+                        <div class="toggle-option">
+                            <input type="radio" id="dmg_yes" name="Vehicle_Damage_Yes" value="1" required>
+                            <label for="dmg_yes">💥 Yes, damaged</label>
+                        </div>
+                        <div class="toggle-option">
+                            <input type="radio" id="dmg_no" name="Vehicle_Damage_Yes" value="0">
+                            <label for="dmg_no">✅ Never damaged</label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">💰 Financial & Channel Details</div>
+            <div class="field-group">
+
+                <div class="field">
+                    <div class="field-header">
+                        <span class="field-label">Annual Premium</span>
+                        <span class="field-hint">In currency units</span>
+                    </div>
+                    <div class="field-desc">The yearly amount the customer pays for their existing health insurance. Higher premiums may indicate customers who value coverage.</div>
+                    <input type="number" step="0.01" name="Annual_Premium" placeholder="e.g. 30000" required>
+                </div>
+
+                <div class="field">
+                    <div class="field-header">
+                        <span class="field-label">Policy Sales Channel</span>
+                        <span class="field-hint">155 channels</span>
+                    </div>
+                    <div class="field-desc">How the customer was contacted. Anonymized codes from training data — select the closest match based on how your team reached this customer.</div>
+                    <select name="Policy_Sales_Channel" required>
+                        <option value="" disabled selected>Select a channel...</option>
+                        <optgroup label="💻 Digital / Online Channels">
+                            <option value="152">152 — Primary Online/Digital (25.1%)</option>
+                            <option value="160">160 — Digital (4.1%)</option>
+                            <option value="156">156 — Digital (2.0%)</option>
+                            <option value="157">157 — Digital (1.2%)</option>
+                            <option value="154">154 — Digital (1.1%)</option>
+                            <option value="151">151 — Digital (0.7%)</option>
+                            <option value="163">163 — Digital (0.5%)</option>
+                        </optgroup>
+                        <optgroup label="🤝 Traditional Agent / Broker Channels">
+                            <option value="26">26 — Primary Agent/Broker (14.8%)</option>
+                            <option value="124">124 — Agent (13.8%)</option>
+                            <option value="122">122 — Agent (1.8%)</option>
+                        </optgroup>
+                        <optgroup label="📦 Other Channels">
+                            <option value="2">2</option><option value="3">3</option><option value="4">4</option>
+                            <option value="5">5</option><option value="6">6</option><option value="7">7</option>
+                            <option value="8">8</option><option value="9">9</option><option value="10">10</option>
+                            <option value="11">11</option><option value="12">12</option><option value="13">13</option>
+                            <option value="14">14</option><option value="16">16</option><option value="19">19</option>
+                            <option value="20">20</option><option value="23">23</option><option value="25">25</option>
+                            <option value="27">27</option><option value="29">29</option><option value="30">30</option>
+                            <option value="33">33</option><option value="55">55</option><option value="59">59</option>
+                            <option value="61">61</option><option value="65">65</option><option value="79">79</option>
+                            <option value="98">98</option><option value="99">99</option><option value="100">100</option>
+                            <option value="110">110</option><option value="111">111</option><option value="112">112</option>
+                            <option value="114">114</option><option value="123">123</option><option value="126">126</option>
+                            <option value="133">133</option><option value="135">135</option><option value="136">136</option>
+                            <option value="140">140</option><option value="144">144</option><option value="145">145</option>
+                            <option value="146">146</option><option value="148">148</option><option value="149">149</option>
+                            <option value="150">150</option><option value="153">153</option><option value="155">155</option>
+                            <option value="158">158</option><option value="159">159</option><option value="161">161</option>
+                            <option value="162">162</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <div class="field-header">
+                        <span class="field-label">Vintage</span>
+                        <span class="field-hint">Number of days</span>
+                    </div>
+                    <div class="field-desc">How many days the customer has been associated with the company. Longer relationships indicate greater customer loyalty.</div>
+                    <input type="number" name="Vintage" placeholder="e.g. 150" required>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="actions">
+            <button type="submit" class="btn btn-primary">🔍 Predict Insurance Interest</button>
+        </div>
+    </form>
+
+    <form method="get" action="/train" style="margin-top:12px">
+        <button type="submit" class="btn btn-secondary">⚙️ Train / Retrain Model</button>
+    </form>
+
+    {% if context %}
+    <div class="result">
+        <div class="result-label">Prediction Result</div>
+        <h2>{{ context }}</h2>
+    </div>
+    {% endif %}
+
+</div>
 </body>
 </html>
