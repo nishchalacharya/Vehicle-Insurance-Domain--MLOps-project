@@ -217,6 +217,32 @@ Automation keeps the system deployable with every commit:
 | Self‑hosted runner | An EC2 Ubuntu instance running GitHub Actions jobs, giving full control over environment.
 | GitHub Secrets | Stores AWS creds, `ECR_REPO` URI, and optionally `MONGODB_URL` for training in CI. |
 
+workflow in graph :
+
+Developer
+   │
+   │ git push
+   ▼
+GitHub
+   │
+   ▼
+GitHub Actions (CI)
+   │
+   │ Build Docker Image
+   │
+   ▼
+Amazon ECR
+   │
+   ▼
+GitHub Actions (CD)
+   │
+   ▼
+EC2 Server
+   │
+   ▼
+Docker Container Running App
+
+
 ### Deployment Steps
 1. Commit and push code → workflow triggered.
 2. Image built and pushed to ECR `vehicleproj` repo.
